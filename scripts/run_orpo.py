@@ -202,6 +202,7 @@ def main():
     ##########################
     # Instantiate ORPO trainer
     ##########################
+    training_args.report_to = []  # diable wandb callbacks
     trainer = ORPOTrainer(
         model,
         args=training_args,
@@ -209,6 +210,7 @@ def main():
         eval_dataset=raw_datasets["test"] if "test" in raw_datasets else None,
         tokenizer=tokenizer,
         peft_config=get_peft_config(model_args),  # type: ignore
+        callbacks=[transformers.integrations.MLflowCallback()]
     )
 
     ###############

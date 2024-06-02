@@ -38,13 +38,13 @@ def extract_docstring(prompt: str) -> str:
 
 
 def human_eval_docstrings() -> List[str]:
-    ds = load_dataset("openai_humaneval", split="test")
+    ds = load_dataset("/shared/public/models/quantized_model/alignment_handbook/openai_humaneval", split="test")
     docstrings = [extract_docstring(v["prompt"]) for v in ds]
     return docstrings
 
 
 def load_dataset_column(dataset: str, column: str, split: str, name=None) -> List[str]:
-    ds = load_dataset(dataset, split=split, name=name)
+    ds = load_dataset("/shared/public/models/quantized_model/alignment_handbook/openai_humaneval", split=split, name=name)
     res = [sample[column].strip() for sample in ds]
     # Only return non-empty strings
     return [sample for sample in res if len(sample) > 0]
